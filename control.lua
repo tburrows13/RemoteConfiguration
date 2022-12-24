@@ -71,7 +71,7 @@ local function create_permission_group()
   group.set_allows_action(defines.input_action.inventory_split, false)
   group.set_allows_action(defines.input_action.inventory_transfer, false)
   group.set_allows_action(defines.input_action.open_item, false)  -- ?
-  group.set_allows_action(defines.input_action.open_mod_item, false)  -- L
+  group.set_allows_action(defines.input_action.open_mod_item, false)  -- ?
   group.set_allows_action(defines.input_action.open_parent_of_opened_item, false)  -- ?
   group.set_allows_action(defines.input_action.place_equipment, false)
   group.set_allows_action(defines.input_action.stack_split, false)
