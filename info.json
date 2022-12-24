@@ -1,0 +1,14 @@
+{
+  "name": "RemoteConfiguration",
+  "version": "1.0.0",
+  "title": "Remote Configuration",
+  "author": "Xorimuth",
+  "description": "Allows the player to configure any machine from the map, without allowing building or item transfer so it maintains the vanilla feel.\nLess cheaty alternative to Far Reach. Similar to Space Exploration's Navigation Satellite, but works entirely within map view.",
+  "factorio_version": "1.1",
+  "dependencies": [
+    "base"
+  ],
+  "package": {
+    "ignore": ["resources/*", "scenarios/*"]
+  }
+}
