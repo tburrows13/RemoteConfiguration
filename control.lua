@@ -8,6 +8,8 @@ local entity_type_blacklist = {
 script.on_event("rc-open-gui",
   function(event)
     local player = game.get_player(event.player_index)
+    local cursor_stack = player.cursor_stack
+    if cursor_stack and cursor_stack.valid_for_read then return end
     local selected = player.selected
 
     if selected then
