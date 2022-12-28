@@ -1,4 +1,10 @@
 ---------------------------------------------------------------------------------------------------
+Version: 1.0.2
+Date: 28 December 2022
+  Features:
+    - Entity copy paste is now allowed at any distance
+    - Items with inventory can now be opened when viewing inventories remotely
+---------------------------------------------------------------------------------------------------
 Version: 1.0.1
 Date: 25 December 2022
   Bugfixes:
