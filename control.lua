@@ -28,6 +28,22 @@ local function can_reach_entity(player, entity)
   return can_reach
 end
 
+local function is_out_of_range_gui_open(player)
+  local opened = player.opened
+  if opened and player.opened_gui_type == defines.gui_type.entity and not can_reach_entity(player, opened) then
+    return true
+  end
+  return false
+end
+
+local wires = {["red-wire"] = true, ["green-wire"] = true, ["copper-cable"] = true}
+local function is_holding_wire(player)
+  local cursor_stack = player.cursor_stack
+  if cursor_stack and cursor_stack.valid_for_read then
+    return wires[cursor_stack.name]
+  end
+end
+
 script.on_event("rc-open-gui",
   function(event)
     local player = game.get_player(event.player_index)
@@ -63,7 +79,22 @@ end
 script.on_event(defines.events.on_gui_closed,
   function(event)
     local player = game.get_player(event.player_index)
+    if is_holding_wire(player) then return end
     reset_player(player)
+  end
+)
+
+script.on_event(defines.events.on_player_cursor_stack_changed,
+  function(event)
+    local player = game.get_player(event.player_index)
+    if is_holding_wire(player) then
+      increase_range(player)
+      player.permission_group = game.permissions.get_group("Remote Configuration GUI opened")
+    else
+      if not is_out_of_range_gui_open(player) then
+        reset_player(player)
+      end
+    end
   end
 )
 
