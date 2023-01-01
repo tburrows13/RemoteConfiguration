@@ -1,3 +1,5 @@
+local RecipeChange = require "__RemoteConfiguration__/recipe-change"
+
 -- These entity types can be opened remotely anyway
 local entity_type_blacklist = {
   ["locomotive"] = true,
@@ -63,7 +65,9 @@ script.on_event("rc-open-gui",
           player.permission_group = game.permissions.get_group("Remote Configuration GUI opened")
         end
         player.opened = selected
-        if player.opened_gui_type ~= defines.gui_type.entity then
+        if player.opened_gui_type == defines.gui_type.entity then
+          RecipeChange.on_remote_gui_opened(player)
+        else
           -- Opening GUI failed
           reset_player(player)
         end
@@ -79,6 +83,7 @@ end
 script.on_event(defines.events.on_gui_closed,
   function(event)
     local player = game.get_player(event.player_index)
+    RecipeChange.on_gui_closed(player)
     if is_holding_wire(player) then return end
     reset_player(player)
   end
