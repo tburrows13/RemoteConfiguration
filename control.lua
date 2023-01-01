@@ -22,7 +22,7 @@ end
 
 local function can_reach_entity(player, entity)
   -- Check if player can reach entity disregarding whatever reach bonus we have given the player
-  if not player.character then return end
+  if not player.character then return true end
   local reach_distance_bonus = player.character_reach_distance_bonus
   reset_range(player)
   local can_reach = player.can_reach_entity(entity)
