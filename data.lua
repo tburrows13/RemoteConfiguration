@@ -11,5 +11,4 @@ data:extend{
     key_sequence = "",
     linked_game_control = "paste-entity-settings",
   },
-
 }

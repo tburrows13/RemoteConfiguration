@@ -100,7 +100,7 @@ end
 local function on_recipe_changed(player_data)
   local entity = player_data.entity
   local entity_diff = ensure_positive(diff_contents(get_machine_contents(entity), player_data.entity_contents))
-  if table_size(entity_diff) == 0 then game.print("Returning") return end
+  if table_size(entity_diff) == 0 then return end
 
   -- Entity contents changed
   local player_diff = diff_contents(player_data.player_contents, get_player_contents(player_data.player))
@@ -116,7 +116,7 @@ local function on_recipe_changed(player_data)
   for name, count in pairs(entity_diff) do
     if player_diff[name] then
       local to_spill = math.min(count, player_diff[name])
-      game.print(game.tick .. " Trying to spill " .. to_spill .. " " .. name)
+      --game.print(game.tick .. " Trying to spill " .. to_spill .. " " .. name)
       local removed = player.remove_item({name = name, count = to_spill})  -- Handles main, ammo, cursor
       to_spill = to_spill - removed
       if to_spill > 0 then
@@ -133,7 +133,7 @@ local function on_recipe_changed(player_data)
         end
       end
       if removed > 0 then
-        game.print(game.tick .. " Spilling " .. removed .. " " .. name)
+        --game.print(game.tick .. " Spilling " .. removed .. " " .. name)
         surface.spill_item_stack(
           position,
           {name = name, count = removed},
@@ -153,7 +153,7 @@ local function process_player(player_data)
   if recipe.name ~= player_data.recipe then
     on_recipe_changed(player_data)
     player_data.recipe = recipe.name
-    game.print(game.tick .. " Recipe changed to " .. recipe.name)
+    --game.print(game.tick .. " Recipe changed to " .. recipe.name)
   end
   -- Update stored info
   player_data.player_contents = get_player_contents(player_data.player)
