@@ -1,4 +1,12 @@
 ---------------------------------------------------------------------------------------------------
+Version: 1.0.3
+Date: 1 January 2023
+  Features:
+    - Wire placement is now allowed at any distance (Wire Shortcuts mod currently doesn't allow wire creation in map view - use Wire Shortcut Lite instead)
+  Bugfixes:
+    - Fixed item transfer being disabled in god mode or editor mode
+    - When changing an assembling machine's recipe remotely, items are now spilled around the machine instead of added to the player's inventory
+---------------------------------------------------------------------------------------------------
 Version: 1.0.2
 Date: 28 December 2022
   Features:
