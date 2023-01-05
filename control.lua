@@ -103,6 +103,25 @@ script.on_event(defines.events.on_player_cursor_stack_changed,
   end
 )
 
+-- Allows wires to be fast-transfered or placed in chests when close, but not when far away
+local function recalculate_wire_permissions(event)
+  local player = game.get_player(event.player_index)
+  if not is_holding_wire(player) then return end
+
+  local opened = player.opened
+  if player.selected and can_reach_entity(player, player.selected) then
+    reset_player(player)
+  elseif player.opened_self or (opened and player.opened_gui_type == defines.gui_type.entity and can_reach_entity(player, opened)) then
+    reset_player(player)
+  else
+    increase_range(player)
+    player.permission_group = game.permissions.get_group("Remote Configuration GUI opened")
+  end
+end
+script.on_event(defines.events.on_player_changed_position, recalculate_wire_permissions)
+script.on_event(defines.events.on_selected_entity_changed, recalculate_wire_permissions)
+script.on_event(defines.events.on_gui_opened, recalculate_wire_permissions)
+
 script.on_event("rc-paste-entity-settings",
   function(event)
     local player = game.get_player(event.player_index)

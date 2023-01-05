@@ -1,4 +1,9 @@
 ---------------------------------------------------------------------------------------------------
+Version: 1.0.4
+Date: 5 January 2023
+  Bugfixes:
+    - Fixed not being able to fast transfer wires/cables or place them in inventories
+---------------------------------------------------------------------------------------------------
 Version: 1.0.3
 Date: 1 January 2023
   Features:
