@@ -152,6 +152,81 @@ script.on_event("rc-paste-entity-settings",
   end
 )
 
+function is_cheating(player)
+	if
+		player.cheat_mode
+		and not (player.controller_type == defines.controllers.god and script.active_mods["space-exploration"])
+	then
+		return true
+	end
+	return player.controller_type == defines.controllers.editor
+end
+
+function set_cursor(player, item)
+	local inventory = player.get_main_inventory()
+	if not inventory then
+		return false
+	end
+	local cursor_stack = player.cursor_stack
+	if not cursor_stack or not player.clear_cursor() then
+		return false
+	end
+	local inventory_stack, stack_index = inventory.find_item_stack(item)
+	if not inventory_stack or not stack_index then
+		local stack_size = game.item_prototypes[item].stack_size
+		if is_cheating(player) and inventory.can_insert({ name = item, count = stack_size }) then
+			inventory.insert({ name = item, count = stack_size })
+			inventory_stack, stack_index = inventory.find_item_stack(item)
+		else
+			player.cursor_ghost = item
+			return true
+		end
+	end
+	--- @cast inventory_stack LuaItemStack
+	--- @cast stack_index uint
+	if not cursor_stack.transfer_stack(inventory_stack) then
+		return false
+	end
+	local inventory_def
+	if player.controller_type == defines.controllers.character then
+		inventory_def = defines.inventory.character_main
+	elseif player.controller_type == defines.controllers.editor then
+		inventory_def = defines.inventory.editor_main
+	elseif player.controller_type == defines.controllers.god then
+		inventory_def = defines.inventory.god_main
+	end
+	player.hand_location = { inventory = inventory_def, slot = stack_index }
+	return true
+end
+
+local function remote_build(event)
+  local player = game.get_player(event.player_index)
+  if player.render_mode == defines.render_mode.game then
+    -- Try and put the real item back in the cursor
+    local cursor_ghost = player.cursor_ghost
+    if not cursor_ghost then return end
+
+    local main_inventory = player.get_main_inventory()
+    if not main_inventory then
+      return
+    end
+
+  	local count = main_inventory.get_item_count(cursor_ghost.name)
+	  if count == 0 then
+		  return
+	  end
+	  set_cursor(player, cursor_ghost.name)
+  else
+    local cursor_stack = player.cursor_stack
+    if not (cursor_stack and cursor_stack.valid_for_read) then return end
+    local cursor_stack_name = cursor_stack.name
+    if player.clear_cursor() then
+      player.cursor_ghost = cursor_stack_name
+    end
+  end
+end
+script.on_event("rc-build", remote_build)
+
 local direction_modifiers = {
   ["straight-rail"] = 0,       -- 0 means ignore
   ["curved-rail"] = 0,
