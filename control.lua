@@ -50,7 +50,7 @@ script.on_event("rc-open-gui",
   function(event)
     local player = game.get_player(event.player_index)
     local cursor_stack = player.cursor_stack
-    if cursor_stack and cursor_stack.valid_for_read then return end
+    if (cursor_stack and cursor_stack.valid_for_read) or player.cursor_ghost then return end
     local selected = player.selected
 
     if selected then
@@ -125,7 +125,7 @@ script.on_event("rc-paste-entity-settings",
   function(event)
     local player = game.get_player(event.player_index)
     local cursor_stack = player.cursor_stack
-    if cursor_stack and cursor_stack.valid_for_read then return end
+    if (cursor_stack and cursor_stack.valid_for_read) or player.cursor_ghost then return end
 
     local selected = player.selected
     if not selected then return end
