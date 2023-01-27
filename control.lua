@@ -189,11 +189,20 @@ local function remote_rotate(event, direction)
     local next_direction = (current_direction + direction * direction_modifier) % 8
     selected.order_upgrade{force = player.force, target = selected, player = player, direction = next_direction}
   end
-
 end
-
 script.on_event("rc-rotate", function(event) remote_rotate(event, 1) end)
 script.on_event("rc-reverse-rotate", function(event) remote_rotate(event, -1) end)
+
+local function remote_mine(event)
+  local player = game.get_player(event.player_index)
+
+  local selected = player.selected
+  if not selected then return end
+
+  if can_reach_entity(player, selected) then return end  -- Let vanilla handle this
+  selected.order_deconstruction(player.force, player)
+end
+script.on_event("rc-mine", remote_mine)
 
 local function create_permission_group(config_changed_data)
   local permissions = game.permissions

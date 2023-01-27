@@ -23,4 +23,10 @@ data:extend{
     key_sequence = "",
     linked_game_control = "reverse-rotate",
   },
+  {
+    type = "custom-input",
+    name = "rc-mine",
+    key_sequence = "",
+    linked_game_control = "mine",
+  },
 }
