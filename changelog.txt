@@ -1,4 +1,9 @@
 ---------------------------------------------------------------------------------------------------
+Version: 1.1.1
+Date: 27 January 2023
+  Bugfixes:
+    - Fixed selection tools and spidertron remotes not being usable in map view
+---------------------------------------------------------------------------------------------------
 Version: 1.1.0
 Date: 27 January 2023
   Features:

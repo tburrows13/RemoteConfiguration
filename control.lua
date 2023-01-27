@@ -219,6 +219,7 @@ local function remote_build(event)
   else
     local cursor_stack = player.cursor_stack
     if not (cursor_stack and cursor_stack.valid_for_read) then return end
+    if not cursor_stack.prototype.place_result then return end
     local cursor_stack_name = cursor_stack.name
     if player.clear_cursor() then
       player.cursor_ghost = cursor_stack_name
