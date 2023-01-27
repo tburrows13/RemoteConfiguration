@@ -280,6 +280,16 @@ local function remote_mine(event)
 end
 script.on_event("rc-mine", remote_mine)
 
+local function remote_cancel_deconstruct(event)
+  local player = game.get_player(event.player_index)
+
+  local selected = player.selected
+  if not selected then return end
+
+  selected.cancel_deconstruction(player.force, player)
+end
+script.on_event("rc-shift-right-click", remote_cancel_deconstruct)
+
 local function create_permission_group(config_changed_data)
   local permissions = game.permissions
 

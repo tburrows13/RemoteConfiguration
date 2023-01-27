@@ -35,4 +35,10 @@ data:extend{
     key_sequence = "",
     linked_game_control = "mine",
   },
+  {
+    type = "custom-input",
+    name = "rc-shift-right-click",
+    key_sequence = "",
+    linked_game_control = "editor-remove-scripting-object",
+  },
 }

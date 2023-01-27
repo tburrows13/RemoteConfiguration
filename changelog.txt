@@ -1,6 +1,8 @@
 ---------------------------------------------------------------------------------------------------
 Version: 1.1.1
 Date: 27 January 2023
+  Features:
+    - Shift + Right-click on any machine to cancel its deconstruction
   Bugfixes:
     - Fixed selection tools and spidertron remotes not being usable in map view
 ---------------------------------------------------------------------------------------------------
@@ -13,7 +15,7 @@ Date: 27 January 2023
     - Press 'R' (or 'Shift + R' for reverse) at any distance to create a rotation request for the selected machine
       - Due to game engine limatations, this does not work on every entity type
       - Since assembling machines specifically can be freely rotated by placing blueprints over them, they now get instantly rotated instead
-    - Right click on a machine at any distance to order its deconstruction
+    - Right-click on a machine at any distance to mark it for deconstruction
   Bugfixes:
     - Fixed GUIs opening remotely even though a ghost cursor is in hand
 ---------------------------------------------------------------------------------------------------
