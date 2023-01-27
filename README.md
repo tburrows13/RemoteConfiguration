@@ -2,6 +2,12 @@ Remote Configuration allows you to click on any machine at any distance and open
 
 Also allows red/green wire and copper cable placement and entity settings copy-paste at any distance.
 
+Attempting to build in map view replaces the item in cursor with a ghost so that you don't have to hold 'Shift'. When building after exiting map view, the ghost cursor is replaced with a real item again. (If using Cursor Enhancements, disable "Automatic ghost cursor" in mod settings).
+
+Press 'R' (or 'Shift + R' for reverse) at any distance to create a rotation request for the selected machine.
+
+Right click on a machine at any distance to order its deconstruction.
+
 ## Compatibility
 
 - Compatible with any mod, including [Far Reach](https://mods.factorio.com/mod/far-reach)

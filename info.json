@@ -1,6 +1,6 @@
 {
   "name": "RemoteConfiguration",
-  "version": "1.0.5",
+  "version": "1.1.0",
   "title": "Remote Configuration",
   "author": "Xorimuth",
   "description": "Allows the player to configure any machine from the map, without allowing item transfer so it maintains the vanilla feel.\nLess cheaty alternative to Far Reach. Similar to Space Exploration's Navigation Satellite, but works entirely within map view.",

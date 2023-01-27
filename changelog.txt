@@ -1,4 +1,17 @@
 ---------------------------------------------------------------------------------------------------
+Version: 1.1.0
+Date: 27 January 2023
+  Features:
+    - Attempting to build in map view replaces the item in cursor with a ghost so that you don't have to hold 'Shift'
+      - When building after exiting map view, the ghost cursor is replaced with a real item again
+      - If using Cursor Enhancements, disable "Automatic ghost cursor" in mod settings
+    - Press 'R' (or 'Shift + R' for reverse) at any distance to create a rotation request for the selected machine
+      - Due to game engine limatations, this does not work on every entity type
+      - Since assembling machines specifically can be freely rotated by placing blueprints over them, they now get instantly rotated instead
+    - Right click on a machine at any distance to order its deconstruction
+  Bugfixes:
+    - Fixed GUIs opening remotely even though a ghost cursor is in hand
+---------------------------------------------------------------------------------------------------
 Version: 1.0.5
 Date: 5 January 2023
   Bugfixes:
