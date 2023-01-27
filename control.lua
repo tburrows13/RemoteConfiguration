@@ -55,7 +55,7 @@ script.on_event("rc-open-gui",
 
     if selected then
       if entity_type_blacklist[selected.type] then return end
-      reset_player(player)  -- Ensures that can_reach_entity is accurate
+      reset_player(player)  -- Ensures that can_reach_entity is accurate, not needed any more?
       local out_of_reach = not can_reach_entity(player, selected)
       local map_mode = player.render_mode == defines.render_mode.chart_zoomed_in
       if out_of_reach or map_mode then
@@ -152,6 +152,48 @@ script.on_event("rc-paste-entity-settings",
   end
 )
 
+local direction_modifiers = {
+  ["straight-rail"] = 0,       -- 0 means ignore
+  ["curved-rail"] = 0,
+  ["rail-signal"] = 0,
+  ["rail-chain-signal"] = 0,
+  ["generator"] = 0,
+  ["burner-generator"] = 0,
+  ["assembling-machine"] = -1,  -- -1 means rotate immediately
+  ["splitter"] = 4,
+  ["underground-belt"] = 4,
+  ["pipe-to-ground"] = 4,
+  ["pump"] = 4,
+}
+local function remote_rotate(event, direction)
+  local player = game.get_player(event.player_index)
+  local cursor_stack = player.cursor_stack
+  if (cursor_stack and cursor_stack.valid_for_read) or player.cursor_ghost then return end
+
+  local selected = player.selected
+  if not selected then return end
+
+  if can_reach_entity(player, selected) then return end  -- Let vanilla handle this
+  if not selected.supports_direction then return end
+
+  local current_direction = selected.get_upgrade_direction()
+
+  if not current_direction then current_direction = selected.direction end
+
+  local direction_modifier = direction_modifiers[selected.type] or 2
+  if direction_modifier == 0 then return end
+  if direction_modifier == -1 then
+    local next_direction = (current_direction + 2 * direction_modifier) % 8
+    selected.direction = next_direction
+  else
+    local next_direction = (current_direction + direction * direction_modifier) % 8
+    selected.order_upgrade{force = player.force, target = selected, player = player, direction = next_direction}
+  end
+
+end
+
+script.on_event("rc-rotate", function(event) remote_rotate(event, 1) end)
+script.on_event("rc-reverse-rotate", function(event) remote_rotate(event, -1) end)
 
 local function create_permission_group(config_changed_data)
   local permissions = game.permissions

@@ -11,4 +11,16 @@ data:extend{
     key_sequence = "",
     linked_game_control = "paste-entity-settings",
   },
+  {
+    type = "custom-input",
+    name = "rc-rotate",
+    key_sequence = "",
+    linked_game_control = "rotate",
+  },
+  {
+    type = "custom-input",
+    name = "rc-reverse-rotate",
+    key_sequence = "",
+    linked_game_control = "reverse-rotate",
+  },
 }
