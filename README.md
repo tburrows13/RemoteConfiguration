@@ -12,5 +12,5 @@ Right click on a machine at any distance to order its deconstruction.
 
 - Compatible with any mod, including [Far Reach](https://mods.factorio.com/mod/far-reach)
 - Works with [Space Exploration](https://mods.factorio.com/mod/space-exploration), although functionality is mostly superseded by SE's Navigation Satellite, which also works cross-surface
-- Recommended with [Wire Shortcut X](https://mods.factorio.com/mod/WireShortcutX) or [Wire Shortcut Lite](https://mods.factorio.com/mod/WireShortcutLite) for long distance wire connections. ([Wire Shortcuts](https://mods.factorio.com/mod/WireShortcuts) currently doesn't work in map view)
+- Recommended with [Wire Shortcut X](https://mods.factorio.com/mod/WireShortcutX) or [Wire Shortcuts](https://mods.factorio.com/mod/WireShortcuts) for long distance wire connections
 - Utilises vanilla's permissions system, so may break if you aren't using the **Default** permissions group. Let me know if you'd like me to improve the interactions in this area
