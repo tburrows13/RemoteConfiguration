@@ -259,7 +259,7 @@ local function remote_rotate(event, direction)
   local direction_modifier = direction_modifiers[selected.type] or 2
   if direction_modifier == 0 then return end
   if direction_modifier == -1 then
-    local next_direction = (current_direction + 2 * direction_modifier) % 8
+    local next_direction = (current_direction + 2 * direction) % 8
     selected.direction = next_direction
   else
     local next_direction = (current_direction + direction * direction_modifier) % 8
