@@ -263,7 +263,11 @@ local function remote_rotate(event, direction)
     selected.direction = next_direction
   else
     local next_direction = (current_direction + direction * direction_modifier) % 8
-    selected.order_upgrade{force = player.force, target = selected, player = player, direction = next_direction}
+    if next_direction == selected.direction and selected.get_upgrade_target() and selected.get_upgrade_target().name == selected.name then
+      selected.cancel_upgrade(player.force, player)
+    else
+      selected.order_upgrade{force = player.force, target = selected, player = player, direction = next_direction}
+    end
   end
 end
 script.on_event("rc-rotate", function(event) remote_rotate(event, 1) end)
