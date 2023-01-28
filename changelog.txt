@@ -1,8 +1,8 @@
 ---------------------------------------------------------------------------------------------------
 Version: 1.1.2
-Date: ???
+Date: 28 January 2023
   Bugfixes:
-    - Fixed remote rotations of assembling machines always rotating in the reverse direction
+    - Fixed remote rotating assembling machines always rotating in the reverse direction
     - Fixed remote rotating an entity back to its starting rotation not clearing the rotation request
 ---------------------------------------------------------------------------------------------------
 Version: 1.1.1
