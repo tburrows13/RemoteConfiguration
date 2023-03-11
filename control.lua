@@ -340,3 +340,18 @@ end
 
 script.on_init(create_permission_group)
 script.on_configuration_changed(create_permission_group)
+
+remote.add_interface("remote-configuration-informatron", {
+  informatron_menu = function(data)
+    return {}
+  end,
+  informatron_page_content = function(data)
+    -- data.page_name, data.player_index, data.element
+    if data.page_name == "remote-configuration-informatron" then
+      data.element.add{
+        type = "label",
+        caption = {"tips-and-tricks-item-description.rc-introduction"},
+      }
+    end
+  end
+})
