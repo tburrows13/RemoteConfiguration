@@ -41,4 +41,20 @@ data:extend{
     key_sequence = "",
     linked_game_control = "editor-remove-scripting-object",
   },
+  {
+    type = "tips-and-tricks-item-category",
+    name = "remote-configuration",
+    order = "l-[rc]",
+  },
+  {
+    type = "tips-and-tricks-item",
+    name = "rc-introduction",
+    category = "remote-configuration",
+    order = "a",
+    is_title = true,
+    trigger = {
+      type = "time-elapsed",
+      ticks = 60 * 60 * 10 -- 10 minutes
+    },
+  },
 }
