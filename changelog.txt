@@ -1,9 +1,11 @@
 ---------------------------------------------------------------------------------------------------
-Version: 1.1.2
-Date: 28 January 2023
-  Bugfixes:
-    - Fixed remote rotating assembling machines always rotating in the reverse direction
-    - Fixed remote rotating an entity back to its starting rotation not clearing the rotation request
+Version: 1.2.0
+Date: 11 March 2023
+  Changes:
+    - All features now only work in map mode unless explicitly enabled in mod settings
+    - Keybinds for all features can now be changed or removed in Settings > Controls
+    - "Build ghosts in map without holding Shift" can now be disabled in mod settings
+    - Added explanation to "Tips and Tricks" and Informatron
 ---------------------------------------------------------------------------------------------------
 Version: 1.1.1
 Date: 27 January 2023
