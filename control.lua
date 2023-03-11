@@ -23,6 +23,7 @@ end
 local function can_reach_entity(player, entity)
   -- Check if player can reach entity disregarding whatever reach bonus we have given the player
   if not player.character then return true end
+  if not player.mod_settings["rc-interact-in-game"].value and player.render_mode == defines.render_mode.game then return true end
   local reach_distance_bonus = player.character_reach_distance_bonus
   reset_range(player)
   local can_reach = player.can_reach_entity(entity)
@@ -273,16 +274,16 @@ end
 script.on_event("rc-rotate", function(event) remote_rotate(event, 1) end)
 script.on_event("rc-reverse-rotate", function(event) remote_rotate(event, -1) end)
 
-local function remote_mine(event)
+local function remote_deconstruct(event)
   local player = game.get_player(event.player_index)
 
   local selected = player.selected
   if not selected then return end
 
-  if can_reach_entity(player, selected) then return end  -- Let vanilla handle this
+  if player.render_mode == defines.render_mode.game and can_reach_entity(player, selected) then return end  -- Let vanilla handle this
   selected.order_deconstruction(player.force, player)
 end
-script.on_event("rc-deconstruct", remote_mine)
+script.on_event("rc-deconstruct", remote_deconstruct)
 
 local function remote_cancel_deconstruct(event)
   local player = game.get_player(event.player_index)

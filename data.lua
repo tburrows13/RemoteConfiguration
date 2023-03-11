@@ -58,8 +58,7 @@ data:extend{
     order = "a",
     is_title = true,
     trigger = {
-      type = "time-elapsed",
-      ticks = 60 * 60 * 10 -- 10 minutes
+      type = "build-entity",
     },
   },
 }
