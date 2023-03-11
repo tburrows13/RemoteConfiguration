@@ -202,6 +202,7 @@ end
 
 local function remote_build(event)
   local player = game.get_player(event.player_index)
+  if not player.mod_settings["rc-ghost-build-in-map"].value then return end
   if player.render_mode == defines.render_mode.game then
     -- Try and put the real item back in the cursor
     local cursor_ghost = player.cursor_ghost
