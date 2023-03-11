@@ -282,7 +282,7 @@ local function remote_mine(event)
   if can_reach_entity(player, selected) then return end  -- Let vanilla handle this
   selected.order_deconstruction(player.force, player)
 end
-script.on_event("rc-mine", remote_mine)
+script.on_event("rc-deconstruct", remote_mine)
 
 local function remote_cancel_deconstruct(event)
   local player = game.get_player(event.player_index)
@@ -292,7 +292,7 @@ local function remote_cancel_deconstruct(event)
 
   selected.cancel_deconstruction(player.force, player)
 end
-script.on_event("rc-shift-right-click", remote_cancel_deconstruct)
+script.on_event("rc-cancel-deconstruct", remote_cancel_deconstruct)
 
 local function create_permission_group(config_changed_data)
   local permissions = game.permissions
