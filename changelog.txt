@@ -1,4 +1,10 @@
 ---------------------------------------------------------------------------------------------------
+Version: 1.2.1
+Date: 12 March 2023
+  Features:
+    - Added a remote interface so that other mods can use RC to open an entity's GUI remotely
+    - Compatibility with Spidertron Enhancements v1.8.15
+---------------------------------------------------------------------------------------------------
 Version: 1.2.0
 Date: 11 March 2023
   Changes:
