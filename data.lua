@@ -47,6 +47,13 @@ data:extend{
     order = "c-b",
   },
   {
+    type = "sound",
+    name = "rc-warning-sound",
+    filename = "__RemoteConfiguration__/sounds/rc-alert.wav",
+    category = "game-effect",
+    volume = 0.3,
+  },
+  {
     type = "tips-and-tricks-item-category",
     name = "remote-configuration",
     order = "l-[rc]",

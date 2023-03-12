@@ -13,17 +13,23 @@ local function increase_range(player)
   end
 end
 
+local ranges_reset_this_tick = {}
 local function reset_range(player)
   if not player.character then return end
   while player.character_reach_distance_bonus >= 200000 do
     player.character_reach_distance_bonus = player.character_reach_distance_bonus - 200000
+    ranges_reset_this_tick[player.index] = game.tick
   end
 end
+local function reset_player(player)
+  player.permission_group = game.permissions.get_group("Default")
+  reset_range(player)
+end
 
-local function can_reach_entity(player, entity)
+local function can_reach_entity(player, entity, ignore_map_only)
   -- Check if player can reach entity disregarding whatever reach bonus we have given the player
   if not player.character then return true end
-  if not player.mod_settings["rc-interact-in-game"].value and player.render_mode == defines.render_mode.game then return true end
+  if not ignore_map_only and not player.mod_settings["rc-interact-in-game"].value and player.render_mode == defines.render_mode.game and not (script.active_mods["SpidertronEnhancements"] and entity.type == "spider-vehicle") then return true end
   local reach_distance_bonus = player.character_reach_distance_bonus
   reset_range(player)
   local can_reach = player.can_reach_entity(entity)
@@ -47,40 +53,53 @@ local function is_holding_wire(player)
   end
 end
 
+local function open_entity(player, entity, ignore_map_only)
+  if entity_type_blacklist[entity.type] then return end
+  reset_player(player)  -- Ensures that can_reach_entity is accurate, not needed any more?
+  local out_of_reach = not can_reach_entity(player, entity, ignore_map_only)
+  local map_mode = player.render_mode == defines.render_mode.chart_zoomed_in
+  if out_of_reach or map_mode then
+    player.opened = nil  -- Triggers on_gui_closed before we open the GUI we care about
+    if out_of_reach then
+      increase_range(player)
+      player.permission_group = game.permissions.get_group("Remote Configuration GUI opened")
+    end
+    player.opened = entity
+    if player.opened_gui_type == defines.gui_type.entity then
+      RecipeChange.on_remote_gui_opened(player)
+      if not map_mode then
+        player.create_local_flying_text{
+          text = {"remote-configuration.opened-gui-remotely"},
+          create_at_cursor = true,
+        }
+        player.play_sound{ path = "rc-warning-sound" }
+      end
+    else
+      -- Opening GUI failed
+      reset_player(player)
+    end
+  end
+end
+
 script.on_event("rc-open-gui",
   function(event)
     local player = game.get_player(event.player_index)
     local cursor_stack = player.cursor_stack
     if (cursor_stack and cursor_stack.valid_for_read) or player.cursor_ghost then return end
     local selected = player.selected
-
     if selected then
-      if entity_type_blacklist[selected.type] then return end
-      reset_player(player)  -- Ensures that can_reach_entity is accurate, not needed any more?
-      local out_of_reach = not can_reach_entity(player, selected)
-      local map_mode = player.render_mode == defines.render_mode.chart_zoomed_in
-      if out_of_reach or map_mode then
-        player.opened = nil  -- Triggers on_gui_closed before we open the GUI we care about
-        if out_of_reach then
-          increase_range(player)
-          player.permission_group = game.permissions.get_group("Remote Configuration GUI opened")
-        end
-        player.opened = selected
-        if player.opened_gui_type == defines.gui_type.entity then
-          RecipeChange.on_remote_gui_opened(player)
-        else
-          -- Opening GUI failed
-          reset_player(player)
-        end
-      end
+      open_entity(player, selected)
     end
   end
 )
 
-function reset_player(player)
-  player.permission_group = game.permissions.get_group("Default")
-  reset_range(player)
-end
+remote.add_interface("RemoteConfiguration",
+  {
+    open_entity = function(player, entity) open_entity(player, entity, true) end,
+    reset_this_tick = function(player) if game.tick == ranges_reset_this_tick[player.index] then return true end end,
+  }
+)
+
 script.on_event(defines.events.on_gui_closed,
   function(event)
     local player = game.get_player(event.player_index)
