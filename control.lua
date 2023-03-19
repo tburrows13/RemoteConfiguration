@@ -57,7 +57,7 @@ local function open_entity(player, entity, ignore_map_only)
   if entity_type_blacklist[entity.type] then return end
   reset_player(player)  -- Ensures that can_reach_entity is accurate, not needed any more?
   local out_of_reach = not can_reach_entity(player, entity, ignore_map_only)
-  local map_mode = player.render_mode == defines.render_mode.chart_zoomed_in
+  local map_mode = player.render_mode == defines.render_mode.chart_zoomed_in or player.render_mode == defines.render_mode.chart
   if out_of_reach or map_mode then
     player.opened = nil  -- Triggers on_gui_closed before we open the GUI we care about
     if out_of_reach then
