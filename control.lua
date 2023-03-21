@@ -84,8 +84,7 @@ end
 script.on_event("rc-open-gui",
   function(event)
     local player = game.get_player(event.player_index)
-    local cursor_stack = player.cursor_stack
-    if (cursor_stack and cursor_stack.valid_for_read) or player.cursor_ghost then return end
+    if not player.is_cursor_empty() then return end
     local selected = player.selected
     if selected then
       open_entity(player, selected)
@@ -144,8 +143,7 @@ script.on_event(defines.events.on_player_cursor_stack_changed,
 script.on_event("rc-paste-entity-settings",
   function(event)
     local player = game.get_player(event.player_index)
-    local cursor_stack = player.cursor_stack
-    if (cursor_stack and cursor_stack.valid_for_read) or player.cursor_ghost then return end
+    if not player.is_cursor_empty() then return end
 
     local selected = player.selected
     if not selected then return end
@@ -264,8 +262,7 @@ local direction_modifiers = {
 }
 local function remote_rotate(event, direction)
   local player = game.get_player(event.player_index)
-  local cursor_stack = player.cursor_stack
-  if (cursor_stack and cursor_stack.valid_for_read) or player.cursor_ghost then return end
+  if not player.is_cursor_empty() then return end
 
   local selected = player.selected
   if not selected then return end
