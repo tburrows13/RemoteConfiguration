@@ -1,4 +1,9 @@
 ---------------------------------------------------------------------------------------------------
+Version: 1.2.2
+Date: 21 March 2023
+  Bugfixes:
+    - Fixed that entity GUIs would open when an item from the blueprint library is used
+---------------------------------------------------------------------------------------------------
 Version: 1.2.1
 Date: 12 March 2023
   Features:
