@@ -59,6 +59,13 @@ local function open_entity(player, entity, ignore_map_only)
   local out_of_reach = not can_reach_entity(player, entity, ignore_map_only)
   local map_mode = player.render_mode == defines.render_mode.chart_zoomed_in or player.render_mode == defines.render_mode.chart
   if out_of_reach or map_mode then
+    if player.force.is_enemy(entity.force) then
+      if map_mode then
+        player.create_local_flying_text{text = {"cant-open-enemy-structures"}, create_at_cursor = true}
+      end
+      return
+    end
+
     player.opened = nil  -- Triggers on_gui_closed before we open the GUI we care about
     if out_of_reach then
       increase_range(player)
@@ -153,6 +160,10 @@ script.on_event("rc-paste-entity-settings",
 
     local entity_copy_source = player.entity_copy_source
     if not entity_copy_source then return end
+    if player.force.is_enemy(selected.force) then
+      player.create_local_flying_text{text = {"cant-paste-enemy-structure-settings"}, create_at_cursor = true}
+      return
+    end
 
     removed_items = selected.copy_settings(entity_copy_source, player)
     local surface = selected.surface
@@ -269,6 +280,9 @@ local function remote_rotate(event, direction)
 
   if can_reach_entity(player, selected) then return end  -- Let vanilla handle this
   if not selected.supports_direction then return end
+  if player.force.is_enemy(selected.force) then
+    return
+  end
 
   local current_direction = selected.get_upgrade_direction()
 
@@ -298,6 +312,10 @@ local function remote_deconstruct(event)
   if not selected then return end
 
   if player.render_mode == defines.render_mode.game and can_reach_entity(player, selected) then return end  -- Let vanilla handle this
+  if player.force ~= selected.force then
+    player.create_local_flying_text{text = {"remote-configuration.cant-decon-unowned-structure"}, create_at_cursor = true}
+    return
+  end
   selected.order_deconstruction(player.force, player)
 end
 script.on_event("rc-deconstruct", remote_deconstruct)
@@ -307,6 +325,10 @@ local function remote_cancel_deconstruct(event)
 
   local selected = player.selected
   if not selected then return end
+  if player.force ~= selected.force then
+    player.create_local_flying_text{text = {"remote-configuration.cant-cancel-decon-unowned-structure"}, create_at_cursor = true}
+    return
+  end
 
   selected.cancel_deconstruction(player.force, player)
 end
