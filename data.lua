@@ -4,6 +4,7 @@ data:extend{
     name = "rc-open-gui",
     localised_name = {"controls.open-gui"},
     key_sequence = "mouse-button-1",
+    controller_key_sequence = "controller-a",
     order = "a",
   },
   {
@@ -23,6 +24,7 @@ data:extend{
     name = "rc-rotate",
     localised_name = {"controls.rotate"},
     key_sequence = "R",
+    controller_key_sequence = "controller-dpright",
     order = "b-a",
   },
   {
@@ -30,6 +32,7 @@ data:extend{
     name = "rc-reverse-rotate",
     localised_name = {"controls.reverse-rotate"},
     key_sequence = "SHIFT + R",
+    controller_key_sequence = "controller-dpleft",
     order = "b-b",
   },
   {
@@ -37,6 +40,7 @@ data:extend{
     name = "rc-deconstruct",
     localised_name = {"gui-permissions-names.Deconstruct"},
     key_sequence = "mouse-button-2",
+    controller_key_sequence = "controller-x",
     order = "c-a",
   },
   {
@@ -44,6 +48,7 @@ data:extend{
     name = "rc-cancel-deconstruct",
     localised_name = {"gui-permissions-names.CancelDeconstruct"},
     key_sequence = "SHIFT + mouse-button-2",
+    controller_key_sequence = "controller-lefttrigger + controller-x",
     order = "c-b",
   },
   {
