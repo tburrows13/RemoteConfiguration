@@ -1,4 +1,11 @@
 ---------------------------------------------------------------------------------------------------
+Version: 1.2.3
+Date: 15 June 2023
+  Features:
+    - Added default keybindings for controller users
+  Bugfixes:
+    - Fixed crashes and unintended behaviour when interacting with machines from other forces
+---------------------------------------------------------------------------------------------------
 Version: 1.2.2
 Date: 21 March 2023
   Bugfixes:
