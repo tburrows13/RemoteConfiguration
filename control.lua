@@ -2,7 +2,6 @@ local RecipeChange = require "__RemoteConfiguration__/recipe-change"
 
 -- These entity types can be opened remotely anyway
 local entity_type_blacklist = {
-  ["locomotive"] = true,
   ["train-stop"] = true,
   ["electric-pole"] = true,
 }
@@ -93,6 +92,18 @@ script.on_event("rc-open-gui",
     local player = game.get_player(event.player_index)
     if not player.is_cursor_empty() then return end
     local selected = player.selected
+
+    if not selected then
+      -- Try from the map for trains (and other vehicles)
+      if player.render_mode == defines.render_mode.chart or player.render_mode == defines.render_mode.chart_zoomed_in then
+        -- Don't need to check chart_zoomed_in because spidertrons have radars, so would be selectable
+        local position = event.cursor_position
+        local vehicles = player.surface.find_entities_filtered{type = {"locomotive", "spider-vehicle"}, position = position, radius = 4.5, limit = 1}
+        if #vehicles > 0 then
+          selected = vehicles[1]
+        end
+      end
+    end
     if selected then
       open_entity(player, selected)
     end
