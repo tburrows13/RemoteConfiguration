@@ -1,4 +1,10 @@
 local RecipeChange = require "__RemoteConfiguration__/recipe-change"
+local blacklist_groups = {
+  -- exotic industries related
+  -- maybe add interface to extend this?
+  ["gate-user"] = true,
+  ["drone-user"] = true
+}
 
 -- These entity types can be opened remotely anyway
 local entity_type_blacklist = {
@@ -21,7 +27,11 @@ local function reset_range(player)
   end
 end
 local function reset_player(player)
+  -- dont reset the group if its currently a blacklist group
+  -- game.print("trying to reset player")
+  if blacklist_groups[player.permission_group.name] then return end
   player.permission_group = game.permissions.get_group("Default")
+  -- game.print("resetting player")
   reset_range(player)
 end
 
