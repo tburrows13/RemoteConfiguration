@@ -124,6 +124,7 @@ script.on_event("rc-open-gui",
 remote.add_interface("RemoteConfiguration",
   {
     open_entity = function(player, entity) open_entity(player, entity, true) end,
+    can_reach_entity = can_reach_entity,
     reset_this_tick = function(player) if game.tick == ranges_reset_this_tick[player.index] then return true end end,
   }
 )
