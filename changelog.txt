@@ -1,4 +1,13 @@
 ---------------------------------------------------------------------------------------------------
+Version: 1.2.6
+Date: 7 April 2024
+  Features:
+    - Added a remote interface so that other mods can check if the player can reach entities whilst RC is active
+  Bugfixes:
+    - Fixed remote deconstruct working whilst holding selection tools
+    - Fixed IR3 airship stations not being able to be opened remotely
+    - Fixed crash when player is not in a permissions group
+---------------------------------------------------------------------------------------------------
 Version: 1.2.5
 Date: 10 January 2024
   Bugfixes:
