@@ -29,7 +29,7 @@ end
 local function reset_player(player)
   -- dont reset the group if its currently a blacklist group
   -- game.print("trying to reset player")
-  if blacklist_groups[player.permission_group.name] then return end
+  if player.permission_group and blacklist_groups[player.permission_group.name] then return end
   player.permission_group = game.permissions.get_group("Default")
   -- game.print("resetting player")
   reset_range(player)
