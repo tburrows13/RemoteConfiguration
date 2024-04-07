@@ -10,6 +10,7 @@ local blacklist_groups = {
 local entity_type_blacklist = {
   ["train-stop"] = true,
   ["electric-pole"] = true,
+  ["simple-entity-with-force"] = true,  -- e.g. IR3 airship-station. They don't have a native GUI so we don't want to override any mod-added GUIs
 }
 
 local function increase_range(player)
