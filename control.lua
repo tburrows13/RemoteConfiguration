@@ -333,6 +333,8 @@ local function remote_deconstruct(event)
   if not selected then return end
 
   if player.render_mode == defines.render_mode.game and can_reach_entity(player, selected) then return end  -- Let vanilla handle this
+  if not player.is_cursor_empty() and not (player.cursor_stack and player.cursor_stack.valid_for_read) then return end  -- Player has something from blueprint library in hand
+  if player.cursor_stack and player.cursor_stack.valid_for_read and (player.cursor_stack.is_selection_tool or player.cursor_stack.is_blueprint or player.cursor_stack.is_blueprint_book or player.cursor_stack.is_upgrade_item or player.cursor_stack.is_deconstruction_item) then return end
   if player.force ~= selected.force then
     player.create_local_flying_text{text = {"remote-configuration.cant-decon-unowned-structure"}, create_at_cursor = true}
     return
@@ -346,6 +348,10 @@ local function remote_cancel_deconstruct(event)
 
   local selected = player.selected
   if not selected then return end
+
+  if not player.is_cursor_empty() and not (player.cursor_stack and player.cursor_stack.valid_for_read) then return end  -- Player has something from blueprint library in hand
+  if player.cursor_stack and player.cursor_stack.valid_for_read and (player.cursor_stack.is_selection_tool or player.cursor_stack.is_blueprint or player.cursor_stack.is_blueprint_book or player.cursor_stack.is_upgrade_item or player.cursor_stack.is_deconstruction_item) then return end
+
   if player.force ~= selected.force then
     player.create_local_flying_text{text = {"remote-configuration.cant-cancel-decon-unowned-structure"}, create_at_cursor = true}
     return
